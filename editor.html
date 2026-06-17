@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save Image with Options - Save Image as JPEG Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <div class="editor-container">
+    <!-- Main Workspace (Image Preview & Cropping Area) -->
+    <main class="preview-area">
+      <div class="preview-header">
+        <h1>Save Image As... <span class="badge">PRO</span></h1>
+        <p class="subtitle">Customize resolution, scale, and crop your image before saving.</p>
+      </div>
+      
+      <div class="image-workspace" id="imageWorkspace">
+        <div class="crop-container" id="cropContainer">
+          <img id="sourceImage" alt="Source image for editing" draggable="false" style="display: none;">
+          <div class="crop-overlay" id="cropOverlay" style="display: none;">
+            <div class="crop-box" id="cropBox">
+              <!-- Grid lines inside the crop box -->
+              <div class="crop-grid-x"></div>
+              <div class="crop-grid-y"></div>
+              <!-- Resize handles -->
+              <div class="handle tl" data-handle="tl"></div>
+              <div class="handle tr" data-handle="tr"></div>
+              <div class="handle bl" data-handle="bl"></div>
+              <div class="handle br" data-handle="br"></div>
+              <div class="handle t" data-handle="t"></div>
+              <div class="handle r" data-handle="r"></div>
+              <div class="handle b" data-handle="b"></div>
+              <div class="handle l" data-handle="l"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-label">Original Resolution:</span>
+          <span class="status-val" id="origResolution">-</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Output Resolution:</span>
+          <span class="status-val" id="outputResolution">-</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Sidebar Controls -->
+    <aside class="control-panel">
+      <!-- Section: Aspect Ratio / Crop -->
+      <section class="control-section">
+        <h2>Aspect Ratio Crop</h2>
+        <div class="ratio-presets">
+          <button class="btn-preset active" data-ratio="free">Free</button>
+          <button class="btn-preset" data-ratio="1:1">1:1 (Square)</button>
+          <button class="btn-preset" data-ratio="16:9">16:9</button>
+          <button class="btn-preset" data-ratio="4:3">4:3</button>
+          <button class="btn-preset" data-ratio="2:3">2:3</button>
+        </div>
+      </section>
+
+      <!-- Section: Resolution & Scale -->
+      <section class="control-section">
+        <h2>Scale & Resolution</h2>
+        
+        <div class="scale-control">
+          <div class="slider-header">
+            <span>Scale Multiplier</span>
+            <span class="slider-val" id="scaleValue">1.0x</span>
+          </div>
+          <input type="range" id="scaleSlider" min="0.25" max="4" step="0.25" value="1">
+          <div class="slider-labels">
+            <span>0.25x</span>
+            <span>1x</span>
+            <span>2x</span>
+            <span>4x</span>
+          </div>
+        </div>
+
+        <div class="dimension-inputs">
+          <div class="input-group">
+            <label for="widthInput">Width (px)</label>
+            <input type="number" id="widthInput" min="10" placeholder="Width">
+          </div>
+          <div class="input-group">
+            <label for="heightInput">Height (px)</label>
+            <input type="number" id="heightInput" min="10" placeholder="Height">
+          </div>
+        </div>
+
+        <div class="lock-aspect-container">
+          <label class="checkbox-label">
+            <input type="checkbox" id="lockAspectCheckbox" checked>
+            <span class="checkbox-custom"></span>
+            Lock Aspect Ratio
+          </label>
+        </div>
+      </section>
+
+      <!-- Section: Export Format & Settings -->
+      <section class="control-section">
+        <h2>Export Format Settings</h2>
+        
+        <div class="input-group">
+          <label for="formatSelect">Format</label>
+          <select id="formatSelect">
+            <option value="image/png">PNG (Lossless, Transparent)</option>
+            <option value="image/jpeg" selected>JPEG (High Quality, Small Size)</option>
+            <option value="image/webp">WebP (Next-Gen, High Quality)</option>
+          </select>
+        </div>
+
+        <div class="quality-control" id="qualityControlSection">
+          <div class="slider-header">
+            <span>Quality</span>
+            <span class="slider-val" id="qualityValue">95%</span>
+          </div>
+          <input type="range" id="qualitySlider" min="10" max="100" step="5" value="95">
+        </div>
+      </section>
+
+      <!-- Section: File Name -->
+      <section class="control-section">
+        <h2>File Name</h2>
+        <div class="input-group">
+          <input type="text" id="filenameInput" placeholder="image_name">
+        </div>
+      </section>
+
+      <!-- Footer Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-secondary" id="btnCancel">Cancel</button>
+        <button class="btn btn-primary" id="btnSave">
+          <span class="btn-text">Download Image</span>
+          <span class="btn-loader" style="display: none;">Processing...</span>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="editor.js"></script>
+</body>
+</html>

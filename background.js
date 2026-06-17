@@ -28,6 +28,14 @@ chrome.runtime.onInstalled.addListener(() => {
       title: "WebP",
       contexts: ["image"],
     });
+
+    // Option to open interactive editor
+    chrome.contextMenus.create({
+      id: "saveWithOptions",
+      parentId: "saveAsFormat",
+      title: "Custom Crop & Scale...",
+      contexts: ["image"],
+    });
   });
 });
 
@@ -81,6 +89,13 @@ function getFilename(srcUrl, targetExt) {
 }
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId === "saveWithOptions" && info.srcUrl) {
+    chrome.storage.local.set({ selectedImageUrl: info.srcUrl }, () => {
+      chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
+    });
+    return;
+  }
+
   const allowedMenus = ["saveAsPNG", "saveAsJPEG", "saveAsWebP"];
   if (!allowedMenus.includes(info.menuItemId) || !info.srcUrl) return;
 
