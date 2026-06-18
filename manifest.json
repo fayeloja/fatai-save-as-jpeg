@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Save Image as JPEG Pro",
+  "name": "FImgSave Pro",
   "version": "1.0.0",
-  "description": "Effortlessly convert and save any web image as a maximum-quality JPEG at its original natural resolution.",
+  "description": "Effortlessly crop, scale, convert, and save any web image as a high-quality PNG, JPEG, or WebP.",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
